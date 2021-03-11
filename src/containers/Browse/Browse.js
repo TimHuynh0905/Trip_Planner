@@ -90,12 +90,12 @@ const Browse = () => {
                     onSubmit={ event => handleSubmit(event) }
                 >
                     <Row>
-                        <Col>{ countrySelection('From Country', 'from', fromCountry, setFromCountry) }</Col>
-                        <Col>{ countrySelection('To Country', 'to', toCountry, setToCountry) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ countrySelection('From Country', 'from', fromCountry, setFromCountry) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ countrySelection('To Country', 'to', toCountry, setToCountry) }</Col>
                     </Row>
                     <Row>
-                        <Col>{ airportSelection('From Airport', 'from', fromAirport, setFromAirport) }</Col>
-                        <Col>{ airportSelection('To Airport', 'to', toAirport, setToAirport) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ airportSelection('From Airport', 'from', fromAirport, setFromAirport) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ airportSelection('To Airport', 'to', toAirport, setToAirport) }</Col>
                     </Row>
                     <Row>
                         <ToggleButton
