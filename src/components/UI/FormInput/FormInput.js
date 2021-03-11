@@ -14,7 +14,7 @@ const formInput = ({ handleChange, label, ...otherProps }) => {
                 ) : null
             }
             {
-                otherProps.touched && otherProps.required && !otherProps.toggleOn && !otherProps.value.length ?
+                otherProps.required && otherProps.invalid === 'true' ?
                 (
                     <p className='invalid'>Please enter a valid value!</p>
                 ) : null
