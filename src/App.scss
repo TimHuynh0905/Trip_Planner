@@ -1,0 +1,37 @@
+.App {
+    #container {
+        position: absolute;
+        overflow: hidden;
+        width: 80%;
+        max-height: 90%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        border-radius: 0.5em;
+        box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+        z-index: 1200;
+        background-color: white;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+
+        #content {
+            position: relative;
+            display: block;
+            overflow: auto;
+            width: 100%;
+            height: 100%;
+            // align-items: center;
+            // justify-content: center;
+        }
+    }
+
+    #particles-js {
+        height: 100vh;
+        background-size: cover;
+        background-color: rgb(69, 85, 116);
+    }
+}

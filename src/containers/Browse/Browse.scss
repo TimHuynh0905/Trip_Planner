@@ -1,0 +1,28 @@
+#browse {
+    position: absolute;
+    // height: auto;
+    width: 70%;
+    top: 0;
+    left: 0;
+    right: 0;
+    // bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20%;
+    padding: 0.5cm;
+    border: 0.5px solid rgba(0,0,0,.15);
+    border-radius: 0.5em;
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+    z-index: 500;
+
+    .browse-inputs {
+        width: 95%;
+        margin: auto;
+        
+        .form-group {
+            .form-input {
+                width: 100%;
+            }
+        }
+    }
+}

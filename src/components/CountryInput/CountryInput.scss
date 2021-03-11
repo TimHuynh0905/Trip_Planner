@@ -1,0 +1,35 @@
+.country-input {
+    .suggestion-box {
+        width: 100%;
+        max-height: 5cm;
+        min-height: 1cm;
+        margin-top: -0.65cm;
+        border: 0.5px solid rgba(0,0,0,.15);
+        box-shadow: 0 2px 4px rgba(0,0,0,.15);
+        z-index: 1000;
+        background-color: white;
+        overflow: auto;
+
+        .country {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            h6 { margin: 0.25rem 0 0.25rem 0; }
+        }
+
+        .country:hover {
+            cursor: pointer;
+            background-color: antiquewhite;
+
+            h6 { color: orange; }
+        }
+
+        .country:active {
+            cursor: pointer;
+            background-color: antiquewhite;
+            
+            h6 { color: gray; }
+        }
+    }
+}

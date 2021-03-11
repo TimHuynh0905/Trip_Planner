@@ -1,0 +1,29 @@
+#navbar {
+    position: absolute;
+    margin-top: 5%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .nav {
+        width: 100%;
+
+        .nav-item {
+            .nav-link {
+                color: black;
+            }
+
+            .nav-link.active {
+                font-weight: 700;
+            }
+
+            .nav-link.disabled {
+                color: gray;
+                cursor: not-allowed!important;
+            }
+        }
+    }
+}
