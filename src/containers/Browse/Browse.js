@@ -7,6 +7,7 @@ import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
 import { countries, airports } from './collections';
 import DateInput from '../../components/DateInput/DateInput';
+import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
 
 const Browse = () => {
     const [ fromCountry, setFromCountry ] = useState('');
@@ -16,6 +17,7 @@ const Browse = () => {
     const [ checked, setChecked ] = useState(false);
     const [ outboundDate, setOutboundDate ] = useState(new Date());
     const [ inboundDate, setInboundDate ] = useState(new Date());
+    const [ loading, setLoading ] = useState(false);
 
     const countrySelection = (label, name, value, handleInput) => (
         <DropdownInput
@@ -53,10 +55,40 @@ const Browse = () => {
         />
     );
 
+    const formValid = () => {
+        const dropdownsValid = 
+            fromCountry.length > 0 && toCountry.length > 0 &&
+            fromAirport.length > 0 && toAirport.length > 0
+        
+        const outboundDateValid = 
+            outboundDate && outboundDate >= (new Date()).setHours(0,0,0,0)
+
+        const inboundDateValid =
+            checked && inboundDate ? outboundDate <= inboundDate : true
+            
+        const valid = 
+            dropdownsValid && outboundDateValid && inboundDateValid            
+
+        console.log(valid);
+
+        return valid;
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (!formValid()) return;
+
+    }
+
     return (
         <div id='browse'>
             <div className='browse-inputs'>
-                <form className='form-group'>
+                <form 
+                    className='form-group' 
+                    noValidate
+                    onSubmit={ event => handleSubmit(event) }
+                >
                     <Row>
                         <Col>{ countrySelection('From Country', 'from', fromCountry, setFromCountry) }</Col>
                         <Col>{ countrySelection('To Country', 'to', toCountry, setToCountry) }</Col>
@@ -106,6 +138,13 @@ const Browse = () => {
                             </h6>
                         </Row>
                     }
+                    <Row>
+                        <LoadingButton
+                            label='Search'
+                            loading={ formValid() && loading }
+                            disabled={ !formValid() }
+                        />
+                    </Row>
                 </form>
             </div>
         </div>

@@ -1,0 +1,32 @@
+.loading-button {
+    background-color: rgb(69, 85, 116);
+    border: none;
+    border-radius: 100px;
+    color: white;
+    padding: 10px 24px;
+    width: fit-content;
+
+    .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+    }
+}
+
+.loading-button:disabled {
+    background-color: rgba(69, 85, 116, 0.5);
+}
+
+.loading-button:disabled:hover {
+    cursor: not-allowed;
+}
+
+.loading-button:hover,
+.loading-button:active,
+.loading-button.active {
+    cursor: pointer;
+}
+
+.loading-button:active,
+.loading-button.active {
+    background-color: rgba(69, 85, 116, 0.5);
+}
