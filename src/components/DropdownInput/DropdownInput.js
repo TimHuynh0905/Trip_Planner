@@ -4,7 +4,7 @@ import './DropdownInput.scss';
 
 import FormInput from '../UI/FormInput/FormInput';
 
-const DropdownInput = ({ label, name, collection }) => {
+const DropdownInput = ({ label, name, collection, value, handleInput }) => {
     const node = useRef();
 
     const [ country, setCountry ] = useState('');
@@ -27,18 +27,18 @@ const DropdownInput = ({ label, name, collection }) => {
     }, []);
 
     return (
-        <div className='country-input' ref={ node }>
+        <div className='dropdown-input' ref={ node }>
             <FormInput
                 label={ label }
                 name={ name }
                 type='text'
-                value={ country }
-                handleChange={ (event) => setCountry(event.target.value) }
+                value={ value }
+                handleChange={ (event) => handleInput(event.target.value) }
                 onClick={ () => {
                     setToggle(!toggleOn);
                     setTouched(true);
                 } }
-                invalid={ touched && !toggleOn && !country.length ? 'true' : 'false' }
+                invalid={ touched && !toggleOn && !value.length ? 'true' : 'false' }
                 required
             />
             {
@@ -50,9 +50,9 @@ const DropdownInput = ({ label, name, collection }) => {
                                     return (
                                         <div 
                                             key={idx} 
-                                            className='country'
+                                            className='option'
                                             onClick={ () => {
-                                                setCountry(`${ obj.code } - ${ obj.name }`);
+                                                handleInput(`${ obj.code } - ${ obj.name }`);
                                                 setToggle(false);
                                             }}>
                                                 <h6>{ obj.code } - { obj.name }</h6>

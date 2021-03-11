@@ -3,19 +3,19 @@ import Switch from 'react-switch';
 
 import './ToggleButton.scss';
 
-const ToggleButton = ({ leftValue, rightValue }) => {
-    const [ checked, setChecked ] = useState(false);
+const ToggleButton = ({ leftValue, rightValue, handleCheck, checked }) => {
+    // const [ checked, setChecked ] = useState(false);
 
     return (
         <div className='toggle'>
             <label>
-                <span className={ !checked ? 'selected' : '' }>{ leftValue }</span>
+                <span className={ checked === 'false' ? 'selected' : '' }>{ leftValue }</span>
                 <Switch
-                    onChange={ () => setChecked(!checked) }
-                    checked={ checked }
+                    onChange={ handleCheck }
+                    checked={ checked === 'true' }
                     className='switch'
                 />
-                <span className={ checked ? 'selected' : '' }>{ rightValue }</span>
+                <span className={ checked === 'true' ? 'selected' : '' }>{ rightValue }</span>
             </label>
         </div>
     );

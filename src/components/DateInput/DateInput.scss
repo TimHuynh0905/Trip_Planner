@@ -1,0 +1,24 @@
+.date-input {
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    label {
+        position: absolute;
+        margin-top: -55px;
+        h6 {
+            width: 100%;
+            margin: 0;
+            font-weight: 700;
+        }
+    }
+
+    .react-date-picker {
+        position: relative;
+        // width: 80%;
+        .react-calendar {
+            font-family: inherit;
+        }
+    }
+}

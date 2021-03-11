@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 import './Browse.scss';
@@ -6,10 +6,18 @@ import './Browse.scss';
 import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
 import { countries, airports } from './collections';
+import DateInput from '../../components/DateInput/DateInput';
 
 const Browse = () => {
+    const [ fromCountry, setFromCountry ] = useState('');
+    const [ toCountry, setToCountry ] = useState('');
+    const [ fromAirport, setFromAirport ] = useState('');
+    const [ toAirport, setToAirport ] = useState('');
+    const [ checked, setChecked ] = useState(false);
+    const [ outboundDate, setOutboundDate ] = useState(new Date());
+    const [ inboundDate, setInboundDate ] = useState(new Date());
 
-    const countrySelection = (label, name) => (
+    const countrySelection = (label, name, value, handleInput) => (
         <DropdownInput
             label={ label }
             name={ name }
@@ -21,11 +29,13 @@ const Browse = () => {
                     }
                 })
             }
+            value={ value }
+            handleInput= { handleInput }
             required
         />
     );
 
-    const airportSelection = (label, name) => (
+    const airportSelection = (label, name, value, handleInput) => (
         <DropdownInput
             label={ label }
             name={ name }
@@ -37,6 +47,8 @@ const Browse = () => {
                     }
                 })
             }
+            value={ value }
+            handleInput= { handleInput }
             required
         />
     );
@@ -46,21 +58,54 @@ const Browse = () => {
             <div className='browse-inputs'>
                 <form className='form-group'>
                     <Row>
-                        <Col>{ countrySelection('From Country', 'from') }</Col>
-                        <Col>{ countrySelection('To Country', 'to') }</Col>
+                        <Col>{ countrySelection('From Country', 'from', fromCountry, setFromCountry) }</Col>
+                        <Col>{ countrySelection('To Country', 'to', toCountry, setToCountry) }</Col>
                     </Row>
                     <Row>
-                        <Col>{ airportSelection('From Airport', 'from') }</Col>
-                        <Col>{ airportSelection('To Airport', 'to') }</Col>
+                        <Col>{ airportSelection('From Airport', 'from', fromAirport, setFromAirport) }</Col>
+                        <Col>{ airportSelection('To Airport', 'to', toAirport, setToAirport) }</Col>
+                    </Row>
+                    <Row>
+                        <ToggleButton
+                            leftValue='One-way'
+                            rightValue='Two-way'
+                            handleCheck={ () => setChecked(!checked) }
+                            checked={ checked ? 'true' : 'false' }
+                        />
                     </Row>
                     <Row>
                         <Col>
-                            <ToggleButton
-                                leftValue='One-way'
-                                rightValue='Two-way'
-                            />
+                            <DateInput
+                                label='Outbound Date'
+                                value={ outboundDate }
+                                handleInput={ setOutboundDate }/>
                         </Col>
+                        {
+                            checked &&
+                            <Col>
+                                <DateInput
+                                    label='Inbound Date'
+                                    value={ inboundDate }
+                                    handleInput={ setInboundDate }/>
+                            </Col>
+                        }
                     </Row>
+                    {
+                        checked && inboundDate < outboundDate &&
+                        <Row className='error-message'>
+                            <h6>
+                                Inbound date cannot be less than outbound date!
+                            </h6>
+                        </Row>
+                    }
+                    {
+                        outboundDate < (new Date()).setHours(0,0,0,0) &&
+                        <Row className='error-message'>
+                            <h6>
+                                Outbound date cannot be less than today's date!
+                            </h6>
+                        </Row>
+                    }
                 </form>
             </div>
         </div>
