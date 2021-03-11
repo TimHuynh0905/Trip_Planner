@@ -10,7 +10,7 @@ const navbar = () => {
                     <Nav.Link href="#home">Browse</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="#profile">My Profile</Nav.Link>
+                    <Nav.Link href="#profile">About Me</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="#register">Register</Nav.Link>

@@ -1,0 +1,14 @@
+.toggle {
+    width: fit-content;
+    margin: auto;
+    margin-top: 20px;
+    label {
+        .switch {
+            vertical-align: middle;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        span.selected { font-weight: 700; }
+    }
+}

@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import './Browse.scss';
 
 import DropdownInput from '../../components/DropdownInput/DropdownInput';
+import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
 import { countries, airports } from './collections';
 
 const Browse = () => {
@@ -51,6 +52,14 @@ const Browse = () => {
                     <Row>
                         <Col>{ airportSelection('From Airport', 'from') }</Col>
                         <Col>{ airportSelection('To Airport', 'to') }</Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <ToggleButton
+                                leftValue='One-way'
+                                rightValue='Two-way'
+                            />
+                        </Col>
                     </Row>
                 </form>
             </div>
