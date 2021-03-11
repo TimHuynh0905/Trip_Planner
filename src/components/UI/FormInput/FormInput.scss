@@ -13,7 +13,7 @@
         border: none;
         border-radius: 0;
         border-bottom: 1px solid grey;
-        margin: 25px 0;
+        margin: 25px 0 25px 0;
     }
 
     .input:focus {
@@ -28,6 +28,11 @@
 
     input[type='password'] {
         letter-spacing: 0.2em;
+    }
+
+    p.invalid {
+        color: red;
+        text-align: center;
     }
 
     .input-label {

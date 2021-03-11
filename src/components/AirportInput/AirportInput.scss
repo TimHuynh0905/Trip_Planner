@@ -1,5 +1,4 @@
-.country-input {
-    
+.airport-input {
     // margin: 0 0 25px 0;
 
     .dropdown-box {
@@ -13,7 +12,7 @@
         background-color: white;
         overflow: auto;
 
-        .country {
+        .airport {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -21,14 +20,14 @@
             h6 { margin: 0.25rem 0 0.25rem 0; }
         }
 
-        .country:hover {
+        .airport:hover {
             cursor: pointer;
             background-color: antiquewhite;
 
             h6 { color: orange; }
         }
 
-        .country:active {
+        .airport:active {
             cursor: pointer;
             background-color: antiquewhite;
 

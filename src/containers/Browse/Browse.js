@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import './Browse.scss';
 
 import CountryInput from '../../components/CountryInput/CountryInput';
+import AirportInput from '../../components/AirportInput/AirportInput';
 // import FormInput from '../../components/UI/FormInput/FormInput';
 
 const Browse = () => {
@@ -23,6 +24,22 @@ const Browse = () => {
                         <Col>
                             <CountryInput
                                 label='To Country'
+                                name='to'
+                                required
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <AirportInput 
+                                label='From Airport'
+                                name='from'
+                                required
+                            />
+                        </Col>
+                        <Col>
+                            <AirportInput
+                                label='To Airport'
                                 name='to'
                                 required
                             />
