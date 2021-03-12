@@ -1,14 +1,9 @@
-#browse {
-    position: absolute;
-    // height: auto;
-    width: 70%;
-    top: 0;
-    left: 0;
-    right: 0;
-    // bottom: 0;
+.browse {
+    // position: absolute;
+    display: flex;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20%;
     padding: 0.5cm;
     border: 0.5px solid rgba(0,0,0,.15);
     border-radius: 0.5em;
@@ -26,9 +21,25 @@
             }
 
             .row {
+                display: flex;
+                // align-items: center;
                 justify-content: center;
                 margin-top: 0.5cm;
                 margin-bottom: 0.5cm;
+
+                .col {
+                    width: fit-content;
+                }
+            }
+
+            #currency-row {
+                width: 40%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #button-row .col {
+                flex: none;
             }
 
             .error-message {

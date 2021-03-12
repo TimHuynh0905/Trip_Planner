@@ -5,7 +5,7 @@ import './Browse.scss';
 
 import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
-import { countries, airports } from './collections';
+import { countries, airports, currencies } from './collections';
 import DateInput from '../../components/DateInput/DateInput';
 import LoadingButton from '../../components/UI/LoadingButton/LoadingButton';
 
@@ -14,6 +14,7 @@ const Browse = () => {
     const [ toCountry, setToCountry ] = useState('');
     const [ fromAirport, setFromAirport ] = useState('');
     const [ toAirport, setToAirport ] = useState('');
+    const [ currency, setCurrency ] = useState('');
     const [ checked, setChecked ] = useState(false);
     const [ outboundDate, setOutboundDate ] = useState(new Date());
     const [ inboundDate, setInboundDate ] = useState(new Date());
@@ -55,6 +56,23 @@ const Browse = () => {
         />
     );
 
+    const currencySelection = (label, name, value, handleInput) => (
+        <DropdownInput
+            label={ label }
+            name={ name }
+            collection={
+                currencies.map(currency => {
+                    return {
+                        code: currency.Code,
+                        name: currency.Symbol
+                    }
+                })
+            }
+            value={ value }
+            handleInput= { handleInput }
+        />
+    );
+
     const formValid = () => {
         const dropdownsValid = 
             fromCountry.length > 0 && toCountry.length > 0 &&
@@ -69,7 +87,7 @@ const Browse = () => {
         const valid = 
             dropdownsValid && outboundDateValid && inboundDateValid            
 
-        console.log(valid);
+        // console.log(valid);
 
         return valid;
     }
@@ -79,10 +97,11 @@ const Browse = () => {
 
         if (!formValid()) return;
 
+        setLoading(true);
     }
 
     return (
-        <div id='browse'>
+        <div className='browse'>
             <div className='browse-inputs'>
                 <form 
                     className='form-group' 
@@ -90,20 +109,22 @@ const Browse = () => {
                     onSubmit={ event => handleSubmit(event) }
                 >
                     <Row>
-                        <Col lg={6} md={6} sm={12}>{ countrySelection('From Country', 'from', fromCountry, setFromCountry) }</Col>
-                        <Col lg={6} md={6} sm={12}>{ countrySelection('To Country', 'to', toCountry, setToCountry) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ countrySelection('From Country (*)', 'from', fromCountry, setFromCountry) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ countrySelection('To Country (*)', 'to', toCountry, setToCountry) }</Col>
                     </Row>
                     <Row>
-                        <Col lg={6} md={6} sm={12}>{ airportSelection('From Airport', 'from', fromAirport, setFromAirport) }</Col>
-                        <Col lg={6} md={6} sm={12}>{ airportSelection('To Airport', 'to', toAirport, setToAirport) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ airportSelection('From Airport (*)', 'from', fromAirport, setFromAirport) }</Col>
+                        <Col lg={6} md={6} sm={12}>{ airportSelection('To Airport (*)', 'to', toAirport, setToAirport) }</Col>
                     </Row>
                     <Row>
-                        <ToggleButton
-                            leftValue='One-way'
-                            rightValue='Two-way'
-                            handleCheck={ () => setChecked(!checked) }
-                            checked={ checked ? 'true' : 'false' }
-                        />
+                        <Col>
+                            <ToggleButton
+                                leftValue='One-way'
+                                rightValue='Two-way'
+                                handleCheck={ () => setChecked(!checked) }
+                                checked={ checked ? 'true' : 'false' }
+                            />
+                        </Col>
                     </Row>
                     <Row>
                         <Col>
@@ -122,6 +143,11 @@ const Browse = () => {
                             </Col>
                         }
                     </Row>
+                    <Row id='currency-row'>
+                        <Col>
+                            { currencySelection('Currency', 'currency', currency, setCurrency) }
+                        </Col>
+                    </Row>
                     {
                         checked && inboundDate < outboundDate &&
                         <Row className='error-message'>
@@ -138,12 +164,14 @@ const Browse = () => {
                             </h6>
                         </Row>
                     }
-                    <Row>
-                        <LoadingButton
-                            label='Search'
-                            loading={ formValid() && loading }
-                            disabled={ !formValid() }
-                        />
+                    <Row id='button-row'>
+                        <Col>
+                            <LoadingButton
+                                label='Search'
+                                loading={ formValid() && loading }
+                                disabled={ !formValid() }
+                            />
+                        </Col>
                     </Row>
                 </form>
             </div>

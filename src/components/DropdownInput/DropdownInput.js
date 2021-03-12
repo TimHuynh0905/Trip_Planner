@@ -4,10 +4,9 @@ import './DropdownInput.scss';
 
 import FormInput from '../UI/FormInput/FormInput';
 
-const DropdownInput = ({ label, name, collection, value, handleInput }) => {
+const DropdownInput = ({ label, name, collection, value, handleInput, required }) => {
     const node = useRef();
 
-    const [ country, setCountry ] = useState('');
     const [ toggleOn, setToggle ] = useState(false)
     const [ touched, setTouched ] = useState(false)
 
@@ -39,7 +38,7 @@ const DropdownInput = ({ label, name, collection, value, handleInput }) => {
                     setTouched(true);
                 } }
                 invalid={ touched && !toggleOn && !value.length ? 'true' : 'false' }
-                required
+                required={ required }
             />
             {
                 toggleOn &&

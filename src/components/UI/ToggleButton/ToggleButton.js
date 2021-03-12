@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Switch from 'react-switch';
 
 import './ToggleButton.scss';
 
 const ToggleButton = ({ leftValue, rightValue, handleCheck, checked }) => {
-    // const [ checked, setChecked ] = useState(false);
-
     return (
         <div className='toggle'>
             <label>
