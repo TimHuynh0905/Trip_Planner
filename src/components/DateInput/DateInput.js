@@ -10,6 +10,7 @@ const DateInput = ({ label, value, handleInput }) => {
                 <h6>{ label }</h6>
             </label>
             <DatePicker
+                // dateFormat='MM/yyyy'
                 onChange={ date => {
                     handleInput(date);
                     console.log(date);

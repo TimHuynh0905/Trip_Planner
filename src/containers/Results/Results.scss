@@ -7,4 +7,11 @@
     margin-right: auto;
     height: auto;
     // margin-top: 1cm;
+    justify-content: center;
+    align-items: center;
+
+    .no-result-response {
+        color: red;
+        font-style: italic;
+    }
 }

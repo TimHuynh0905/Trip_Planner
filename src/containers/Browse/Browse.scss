@@ -47,6 +47,15 @@
                 color: red;
                 margin: 0;
             }
+
+            .ignore-date-notice {
+                text-align: center;
+                font-style: italic;
+                h6 span {
+                    font-weight: 700;
+                    color: red
+                }
+            }
         }
     }
 }

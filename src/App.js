@@ -13,6 +13,7 @@ const App = () => {
 
   const [ currencies, setCurrencies ] = useState([]);
   const [ countries, setCountries ] = useState([]);
+  const [ routes, setRoutes ] = useState(null);
 
   useEffect(() => {
     axios.all([
@@ -40,9 +41,16 @@ const App = () => {
         <div id='content'>
           <Browse
             countries={ countries }
-            currencies={ currencies }/>
-          <hr/>
-          <Results/>
+            currencies={ currencies }
+            setRoutes={ setRoutes }/>
+          {
+            routes &&
+            <>
+                <hr/>
+                <Results
+                  routes={ routes }/>
+            </>
+          }
         </div>
       </div>
       <Particles
