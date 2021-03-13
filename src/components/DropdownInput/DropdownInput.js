@@ -4,7 +4,7 @@ import './DropdownInput.scss';
 
 import FormInput from '../UI/FormInput/FormInput';
 
-const DropdownInput = ({ label, name, collection, value, handleInput, required }) => {
+const DropdownInput = ({ label, name, collection, value, handleInput, handleSelect, required }) => {
     const node = useRef();
 
     const [ toggleOn, setToggle ] = useState(false)
@@ -32,7 +32,7 @@ const DropdownInput = ({ label, name, collection, value, handleInput, required }
                 name={ name }
                 type='text'
                 value={ value }
-                handleChange={ (event) => handleInput(event.target.value) }
+                handleChange={ (event) => { handleInput(event.target.value) } }
                 onClick={ () => {
                     setToggle(!toggleOn);
                     setTouched(true);
@@ -51,7 +51,7 @@ const DropdownInput = ({ label, name, collection, value, handleInput, required }
                                             key={idx} 
                                             className='option'
                                             onClick={ () => {
-                                                handleInput(`${ obj.code } - ${ obj.name }`);
+                                                handleSelect(`${ obj.code } - ${ obj.name }`);
                                                 setToggle(false);
                                             }}>
                                                 <h6>{ obj.code } - { obj.name }</h6>

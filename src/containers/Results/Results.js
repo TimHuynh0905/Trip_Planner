@@ -50,10 +50,6 @@ const Results = () => {
                     );
                 })
             }
-            {/* <ResultComponent/>
-            <ResultComponent/>
-            <ResultComponent/>
-            <ResultComponent/> */}
         </div>
     );
 }

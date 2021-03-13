@@ -12,12 +12,12 @@ const navbar = () => {
                 <Nav.Item>
                     <Nav.Link href="#profile">About Me</Nav.Link>
                 </Nav.Item>
-                <Nav.Item>
+                {/* <Nav.Item>
                     <Nav.Link href="#register">Register</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="#signin">Sign In</Nav.Link>
-                </Nav.Item>
+                </Nav.Item> */}
             </Nav>
         </div>
     );

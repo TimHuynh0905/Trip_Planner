@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { axios_instance, endpoints } from './config';
+import axios from 'axios';
 
 import './App.scss';
 
@@ -8,12 +10,37 @@ import Browse from './containers/Browse/Browse';
 import Results from './containers/Results/Results';
 
 const App = () => {
+
+  const [ currencies, setCurrencies ] = useState([]);
+  const [ countries, setCountries ] = useState([]);
+
+  useEffect(() => {
+    axios.all([
+      axios_instance.get(endpoints.countries),
+      axios_instance.get(endpoints.currencies)
+    ])
+      .then(axios.spread((countriesRes, currenciesRes) => {
+        console.log(countriesRes);
+        console.log(currenciesRes);
+
+        const countries = countriesRes.data.Countries;
+        const currencies = currenciesRes.data.Currencies;
+
+        setCountries(countries);
+        setCurrencies(currencies);
+      }))
+      .catch(err => console.error(err));
+
+  }, []);
+
   return (
     <div className="App">
       <div id='container'>
         <Navbar/>
         <div id='content'>
-          <Browse/>
+          <Browse
+            countries={ countries }
+            currencies={ currencies }/>
           <hr/>
           <Results/>
         </div>
