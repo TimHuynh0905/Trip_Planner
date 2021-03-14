@@ -166,24 +166,26 @@ const Browse = ({ countries, currencies, setRoutes }) => {
 
         // if (!formValid()) return;
 
-        // setLoading(true);
+        setLoading(true);
         
-        const origin = fromAirport.split(' - ')[0];
-        const destination = toAirport.split(' - ')[0];
-        const outbound = getFormattedDate(outboundDate);
-        const inbound = getFormattedDate(inboundDate);
+        // const curr = currency.split(' - ')[0]
+        // const origin = fromAirport.split(' - ')[0];
+        // const destination = toAirport.split(' - ')[0];
+        // const outbound = getFormattedDate(outboundDate);
+        // const inbound = getFormattedDate(inboundDate);
 
-        // const origin = 'AMS-sky';
-        // const destination = 'LAX-sky';
-        // const outbound = '2021-03';
-        // const inbound = '2021-04'
+        const curr = 'USD'
+        const origin = 'AMS-sky';
+        const destination = 'LAX-sky';
+        const outbound = '2021-03';
+        const inbound = '2021-04'
 
         const url = 
             twoWay 
             ?
-                `${endpoints.routes}/US/${currency.split(' - ')[0]}/en-US/${origin}/${destination}/${outbound}/${inbound}`
+                `${endpoints.routes}/US/${curr}/en-US/${origin}/${destination}/${outbound}/${inbound}`
             :
-                `${endpoints.routes}/US/${currency.split(' - ')[0]}/en-US/${origin}/${destination}/${outbound}`
+                `${endpoints.routes}/US/${curr}/en-US/${origin}/${destination}/${outbound}`
 
         axios_instance({
             method: 'get',
@@ -197,7 +199,17 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                 setRoutes(resp.data);
                 setLoading(false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                setRoutes({
+                    Quotes: [],
+                    Carriers: [],
+                    Places: [],
+                    Currencies: [],
+                    Routes: [],
+                });
+                setLoading(false);
+            });
 
     }
 
@@ -348,7 +360,7 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                             <LoadingButton
                                 label='Search'
                                 loading={ formValid() && loading }
-                                disabled={ !formValid() }
+                                // disabled={ !formValid() }
                             />
                         </Col>
                     </Row>

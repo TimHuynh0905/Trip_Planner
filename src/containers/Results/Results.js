@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Results.scss';
 import ResultComponent from '../../components/ResultComponent/ResultComponent';
+import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
 
 // import { routes } from './routes';
 
 const Results = ({ routes }) => {
     const { Quotes, Carriers, Places, Currencies } = routes;
+    const [ maxSorted, setMaxSorted ] = useState(false);
+
+    useEffect(() => {
+        const handleSortOrderChange = () => {
+            Quotes.sort(
+                (quote_a, quote_b) =>
+                    quote_a.Minprice - quote_b.MinPrice ? 1 : -1
+            );
+        }
+        handleSortOrderChange();
+    }, [ Quotes, maxSorted ]);
 
     const buildRoute = (leg, price) => {
         const { CarrierIds, OriginId, DestinationId, DepartureDate } = leg;
@@ -39,7 +51,7 @@ const Results = ({ routes }) => {
     }
 
     const renderContent = () => {
-        if (routes.Quotes.length === 0) {
+        if (routes == null || routes.Quotes.length === 0) {
             return (
                 <h6 className='no-result-response'>
                     Sorry, No Results Found!
@@ -47,18 +59,28 @@ const Results = ({ routes }) => {
             );
         }
 
-        return [
-            results(routes).map((result, idx) => {
-                // console.log(idx);
-                return (
-                    <ResultComponent 
-                        key={ idx }
-                        result={ result }
-                        index={ idx }
-                    />
-                );
-            })
-        ]
+        return (
+            <>
+                <ToggleButton
+                    leftValue='Price: Low to High'
+                    rightValue='Price: High to Low'
+                    handleCheck={ () => setMaxSorted(!maxSorted) }
+                    checked={ maxSorted ? 'true' : 'false' }
+                />
+                {
+                    results(routes).map((result, idx) => {
+                        // console.log(idx);
+                        return (
+                            <ResultComponent 
+                                key={ idx }
+                                result={ result }
+                                index={ idx }
+                            />
+                        );
+                    })
+                }
+            </>
+        )
     }
 
     return (

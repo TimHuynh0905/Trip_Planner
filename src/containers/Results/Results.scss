@@ -1,4 +1,5 @@
 .results {
+    // position: relative;
     display: flex;
     flex-wrap: wrap;
     // border: 1px solid black;
@@ -13,5 +14,9 @@
     .no-result-response {
         color: red;
         font-style: italic;
+    }
+
+    .toggle {
+        margin-right: 0;
     }
 }
