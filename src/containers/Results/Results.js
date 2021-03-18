@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import './Results.scss';
+
 import ResultComponent from '../../components/ResultComponent/ResultComponent';
 import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
+import './Results.scss';
 
 const Results = ({ routes }) => {
-    const { Quotes, Carriers, Places, Currencies } = routes;
-    const [ descending, setDescending ] = useState(false);
-    const [ quotes, setQuotes ] = useState(null);
 
+    // Retrieve objects from routes prop
+    const { Quotes, Carriers, Places, Currencies } = routes;
+    
+    // Component-level states
+    const [ quotes, setQuotes ] = useState(null);           
+    const [ descending, setDescending ] = useState(false); // Sort flights by MinPrice from highest to lowest
+    
     useEffect(() => {
         // console.log('Sort toggle clicked!');
         if (quotes) {
@@ -18,12 +23,29 @@ const Results = ({ routes }) => {
         }
     }, [ quotes, descending ]);
 
+    // Quotes changed (as a result of new Search) does not logically trigger a re-sort
     useEffect(() => {
         // console.log('Quotes changed')
         setDescending(false);
         setQuotes(Quotes);
     }, [ Quotes ])
 
+    // Parse the each quote into a route object that contains only the fields we want to display
+    const results = () => {
+        const results = quotes.map((quote, idx) => {
+            const price = quote.MinPrice;
+            const outboundRoute = buildRoute(quote.OutboundLeg, price);
+            const inboundRoute = quote.InboundLeg ? buildRoute(quote.InboundLeg, price) : null;
+            return {
+                outboundRoute: outboundRoute,
+                inboundRoute: inboundRoute
+            };
+        })
+
+        return results;
+    }
+
+    // Helper function used to build the route object that has information we want to display
     const buildRoute = (leg, price) => {
         const { CarrierIds, OriginId, DestinationId, DepartureDate } = leg;
         const carrier = Carriers.find(carrier => carrier.CarrierId === CarrierIds[0]);
@@ -41,21 +63,10 @@ const Results = ({ routes }) => {
         return route;
     }
 
-    const results = (routes) => {
-        const results = Quotes.map((quote, idx) => {
-            const price = quote.MinPrice;
-            const outboundRoute = buildRoute(quote.OutboundLeg, price);
-            const inboundRoute = quote.InboundLeg ? buildRoute(quote.InboundLeg, price) : null;
-            return {
-                outboundRoute: outboundRoute,
-                inboundRoute: inboundRoute
-            };
-        })
 
-        return results;
-    }
-
+    // Display what we want users to see - Error Message or Results
     const renderContent = () => {
+        // Return Error Message if no route is found from Search inputs
         if (routes == null || routes.Quotes.length === 0) {
             return (
                 <h6 className='no-result-response'>
@@ -64,17 +75,21 @@ const Results = ({ routes }) => {
             );
         }
 
+        // Else, return sort toggle button and a list of flight options
         return (
+            //  Result box
             <div className='result-box'>
+                {/* Sort toggle */}
                 <ToggleButton
                     leftValue='Price: Low to High'
                     rightValue='Price: High to Low'
                     handleCheck={ () => setDescending(!descending) }
                     checked={ descending ? 'true' : 'false' }
                 />
+
+                {/* Result list */}
                 {
-                    results(routes).map((result, idx) => {
-                        // console.log(idx);
+                    results().map((result, idx) => {
                         return (
                             <ResultComponent 
                                 key={ idx }
@@ -87,6 +102,7 @@ const Results = ({ routes }) => {
             </div>
         )
     }
+
 
     return (
         <div className='results'>

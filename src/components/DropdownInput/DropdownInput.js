@@ -4,18 +4,23 @@ import './DropdownInput.scss';
 
 import FormInput from '../UI/FormInput/FormInput';
 
+// DropdownInput Component 
+// (User query input field + dropdown suggestions)
 const DropdownInput = ({ label, name, collection, value, handleInput, handleSelect, required }) => {
-    const node = useRef();
+    
+    const node = useRef(); // Capture clicks on components that has this reference
 
-    const [ toggleOn, setToggle ] = useState(false)
-    const [ touched, setTouched ] = useState(false)
+    const [ dropped, setDropped ] = useState(false)     // Dropdown box appears or disappears 
+    const [ touched, setTouched ] = useState(false)     // Triggers warning alert for required input
 
+    // Make dropdown box disappears of mouse is clicked outside of the component
     const handleClick = (event) => {
         if (!node.current.contains(event.target)) {
-            setToggle(false);
+            setDropped(false);
         }
     }
 
+    // Mouse event listeners
     useEffect(() => {
         // add when mounted
         document.addEventListener('mousedown', handleClick);
@@ -27,6 +32,7 @@ const DropdownInput = ({ label, name, collection, value, handleInput, handleSele
 
     return (
         <div className='dropdown-input' ref={ node }>
+            {/* Input - query string */}
             <FormInput
                 label={ label }
                 name={ name }
@@ -34,14 +40,16 @@ const DropdownInput = ({ label, name, collection, value, handleInput, handleSele
                 value={ value }
                 handleChange={ (event) => { handleInput(event.target.value) } }
                 onClick={ () => {
-                    setToggle(!toggleOn);
+                    setDropped(!dropped);
                     setTouched(true);
                 } }
-                invalid={ touched && !toggleOn && !value.length ? 'true' : 'false' }
+                invalid={ touched && !dropped && !value.length ? 'true' : 'false' }
                 required={ required }
             />
+
+            {/* Dropdown box */}
             {
-                toggleOn &&
+                dropped &&
                     <div className='dropdown-box'>
                         {
                             collection.map((obj, idx) => 
@@ -52,7 +60,7 @@ const DropdownInput = ({ label, name, collection, value, handleInput, handleSele
                                             className='option'
                                             onClick={ () => {
                                                 handleSelect(`${ obj.code } - ${ obj.name }`);
-                                                setToggle(false);
+                                                setDropped(false);
                                             }}>
                                                 <h6>{ obj.code } - { obj.name }</h6>
                                         </div>
