@@ -24,7 +24,7 @@ const Browse = ({ countries, currencies, setRoutes }) => {
     const [ inboundDate, setInboundDate ] = useState(new Date());
     const [ loading, setLoading ] = useState(false);
 
-    useEffect(() => {
+    useEffect( () => {
         const handleCountryInputsChange = () => {
             if (fromAirport.length) {
                 axios_instance.get(`${endpoints.places}/${fromCountry.substring(0, 2)}/${currency.split(' - ')[0]}/en-US/`, {
@@ -45,7 +45,12 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                         )
                 ).catch(err => console.error(err));
             } else setFromAirportList([]);
+        }
+        handleCountryInputsChange();
+    }, [ fromCountry, fromAirport, currency ])
 
+    useEffect( () => {
+        const handleCountryInputsChange = () => {
             if (toAirport.length) {
                 axios_instance.get(`${endpoints.places}/${toCountry.substring(0, 2)}/${currency.split(' - ')[0]}/en-US/`, {
                     params: { query: toAirport },
@@ -66,10 +71,8 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                 ).catch(err => console.error(err));
             } else setToAirportList([]);
         }
-
         handleCountryInputsChange();
-
-    }, [ fromCountry, toCountry, fromAirport, toAirport, currency ])
+    }, [ toCountry, toAirport, currency ])
 
     const countrySelection = (label, name, value, handleSelect) => (
         <DropdownInput
@@ -164,21 +167,21 @@ const Browse = ({ countries, currencies, setRoutes }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // if (!formValid()) return;
+        if (!formValid()) return;
 
         setLoading(true);
         
-        // const curr = currency.split(' - ')[0]
-        // const origin = fromAirport.split(' - ')[0];
-        // const destination = toAirport.split(' - ')[0];
-        // const outbound = getFormattedDate(outboundDate);
-        // const inbound = getFormattedDate(inboundDate);
+        const curr = currency.split(' - ')[0]
+        const origin = fromAirport.split(' - ')[0];
+        const destination = toAirport.split(' - ')[0];
+        const outbound = getFormattedDate(outboundDate);
+        const inbound = getFormattedDate(inboundDate);
 
-        const curr = 'USD'
-        const origin = 'AMS-sky';
-        const destination = 'LAX-sky';
-        const outbound = '2021-03';
-        const inbound = '2021-04'
+        // const curr = 'USD'
+        // const origin = 'AMS-sky';
+        // const destination = 'LAX-sky';
+        // const outbound = '2021-03';
+        // const inbound = '2021-04'
 
         const url = 
             twoWay 
@@ -210,7 +213,6 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                 });
                 setLoading(false);
             });
-
     }
 
     return (
@@ -360,7 +362,7 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                             <LoadingButton
                                 label='Search'
                                 loading={ formValid() && loading }
-                                // disabled={ !formValid() }
+                                disabled={ !formValid() }
                             />
                         </Col>
                     </Row>

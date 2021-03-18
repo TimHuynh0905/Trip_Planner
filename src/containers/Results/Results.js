@@ -3,21 +3,26 @@ import './Results.scss';
 import ResultComponent from '../../components/ResultComponent/ResultComponent';
 import ToggleButton from '../../components/UI/ToggleButton/ToggleButton';
 
-// import { routes } from './routes';
-
 const Results = ({ routes }) => {
     const { Quotes, Carriers, Places, Currencies } = routes;
-    const [ maxSorted, setMaxSorted ] = useState(false);
+    const [ descending, setDescending ] = useState(false);
+    const [ quotes, setQuotes ] = useState(null);
 
     useEffect(() => {
-        const handleSortOrderChange = () => {
-            Quotes.sort(
+        // console.log('Sort toggle clicked!');
+        if (quotes) {
+            quotes.sort(
                 (quote_a, quote_b) =>
                     quote_a.Minprice - quote_b.MinPrice ? 1 : -1
             );
         }
-        handleSortOrderChange();
-    }, [ Quotes, maxSorted ]);
+    }, [ quotes, descending ]);
+
+    useEffect(() => {
+        // console.log('Quotes changed')
+        setDescending(false);
+        setQuotes(Quotes);
+    }, [ Quotes ])
 
     const buildRoute = (leg, price) => {
         const { CarrierIds, OriginId, DestinationId, DepartureDate } = leg;
@@ -60,12 +65,12 @@ const Results = ({ routes }) => {
         }
 
         return (
-            <>
+            <div className='result-box'>
                 <ToggleButton
                     leftValue='Price: Low to High'
                     rightValue='Price: High to Low'
-                    handleCheck={ () => setMaxSorted(!maxSorted) }
-                    checked={ maxSorted ? 'true' : 'false' }
+                    handleCheck={ () => setDescending(!descending) }
+                    checked={ descending ? 'true' : 'false' }
                 />
                 {
                     results(routes).map((result, idx) => {
@@ -79,7 +84,7 @@ const Results = ({ routes }) => {
                         );
                     })
                 }
-            </>
+            </div>
         )
     }
 
