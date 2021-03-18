@@ -5,7 +5,7 @@ import axios from 'axios';
 import './App.scss';
 
 import Particles from 'react-particles-js';
-import Navbar from './containers/Navbar/Navbar';
+// import Navbar from './containers/Navbar/Navbar';
 import Browse from './containers/Browse/Browse';
 import Results from './containers/Results/Results';
 
@@ -36,21 +36,34 @@ const App = () => {
 
   return (
     <div className="App">
-      <div id='container'>
-        <Navbar/>
-        <div id='content'>
-          <Browse
-            countries={ countries }
-            currencies={ currencies }
-            setRoutes={ setRoutes }/>
-          {
-            routes &&
-            <>
-                <hr/>
-                <Results
-                  routes={ routes }/>
-            </>
-          }
+      <div id='wrapper'>
+        {/* <Navbar/> */}
+        <div id='main'>
+          <div className='content'>
+            <Browse
+              countries={ countries }
+              currencies={ currencies }
+              setRoutes={ setRoutes }/>
+            {
+              routes &&
+              <>
+                  <hr/>
+                  <Results
+                    routes={ routes }/>
+              </>
+            }
+          </div>
+        </div>
+        <div id='footer'>
+          <ul className='copyright'>
+							<li>
+                Copyright &copy; 
+                <a href="https://www.linkedin.com/in/qthuynh9501/">
+                  quoc
+                </a>{' '} 
+                2021
+              </li>
+						</ul>
         </div>
       </div>
       <Particles

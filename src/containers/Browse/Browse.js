@@ -362,7 +362,7 @@ const Browse = ({ countries, currencies, setRoutes }) => {
                             <LoadingButton
                                 label='Search'
                                 loading={ formValid() && loading }
-                                disabled={ !formValid() }
+                                // disabled={ !formValid() }
                             />
                         </Col>
                     </Row>
